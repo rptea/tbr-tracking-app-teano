@@ -6,6 +6,17 @@
     <a href="/books/saved">My saved books</a>
 </p>
 
+<div class="results-controls">
+    <span>Results per page:</span>
+    {{#each pageSizes}}
+        {{#if isSelected}}
+            <strong>{{value}}</strong>
+        {{else}}
+            <a href="/books/search?q={{../query}}&page=1&limit={{value}}">{{value}}</a>
+        {{/if}}
+    {{/each}}
+</div>
+
 {{#if results.length}}
     <ul class="book-results">
         {{#each results}}
@@ -29,6 +40,18 @@
             </li>
         {{/each}}
     </ul>
-{{else}}
+
+    <div class="pagination">
+        {{#if hasPrev}}
+            <a href="/books/search?q={{query}}&page={{prevPage}}&limit={{limit}}">Previous</a>
+        {{/if}}
+
+        <span>Page {{currentPage}} of {{totalPages}}</span>
+
+        {{#if hasNext}}
+            <a href="/books/search?q={{query}}&page={{nextPage}}&limit={{limit}}">Next</a>
+        {{/if}}
+    </div>
+{{else}} 
     <p>No results found. Try a different search term.</p>
 {{/if}}

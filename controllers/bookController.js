@@ -11,17 +11,44 @@ function showSearchForm(req, res) {
 // Run a search against Open Library
 async function handleSearch(req, res) {
     try {
-        const query = req.body.query;
+        const query = req.query.q || req.query.query || req.body.query;
 
-        if (!query || query.trim() === '') {
-            return res.render('search', { error: 'Please enter a search term'});
+        if (!query || query.trim() === "") {
+            return res.render("search", { 
+                isLoggedIn: req.session.isLoggedIn
+            });
         }
 
-        const results = await bookApiService.searchBooks(query);
-        return res.render('results', { results, query });
+        // pagination
+        const hasPrev = currentPage > 1;
+        const hasNext = currentPage < totalPages;
+        const prevPage = hasPrev ? currentPage - 1 : null;
+        const nextPage = hasNext ? currentPage + 1 : null;
+
+        const pageSizes = validPageSizes.map((size) => ({
+            value: size,
+            isSelected: size === limit,
+        }));
+
+        return res.render("results", {
+            results: paginatedResults,
+            query,
+            currentPage,
+            totalPages,
+            limit,
+            pageSizes,
+            hasPrev,
+            hasNext,
+            prevPage,
+            nextPage,
+            isLoggedIn: req.session.isLoggedIn,
+        });
     } catch (err) {
         console.error(err);
-        res.render('search', { error: 'Error searching for books' });
+        res.render("search", { 
+            error: "Error searching for books",
+        isLoggedIn: req.session.isLoggedIn
+        });
     }
 }
 

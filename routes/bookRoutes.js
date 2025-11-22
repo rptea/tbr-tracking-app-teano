@@ -6,9 +6,6 @@ const checkAuth = require("../middleware/auth");
 // show search form
 router.get("/search", bookController.showSearchForm);
 
-// handle search submission
-router.post("/search", bookController.handleSearch);
-
 // save selected book, requires login because it uses req.session.userId
 router.post("/save", checkAuth, bookController.saveBook);
 
