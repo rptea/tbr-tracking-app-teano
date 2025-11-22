@@ -11,4 +11,4 @@ router.post('saved/:savedId/favortite', savedController.toggleFavorites)
 // delete a saved book
 router.post('saved/:savedId/delete', savedController.deleteSaved)
 
-module.exports = router
+module.exports = router;

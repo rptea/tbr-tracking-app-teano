@@ -1,7 +1,29 @@
 const UserBook = require('../models/userBookModel')
 
-async function toggleFavoritesHandler(req, res) {
+async function listSavedBooks(req, res) {
     try {
+        const userId = req.session.userId
+
+        if (!userId) {
+            return res.redirect('/login')
+        }
+
+        const saveBooks = await UserBook.getSavedBooksByUser(userId)
+
+        res.render('savedBooks', { savedBooks })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error loading saved books')
+    }
+}
+
+async function toggleFavorites(req, res) {
+    try {
+        const userId = req.session.userId
+        if (!userId) {
+            return res.redirect('/login')
+        }
+
         const { savedId } = req.params
         const { favorited } = req.body
 
@@ -20,6 +42,27 @@ async function toggleFavoritesHandler(req, res) {
     }
 }
 
+async function deleteSaved(req,res) {
+    try {
+        const userId = req.session.userId
+
+        if (!userId) {
+            return res.redirect('/login')
+        }
+    
+        const { savedId } = req.params
+
+        await UserBook.remove(savedId)
+
+        res.redirect('/books/saved')
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Error deleting saved book')
+    }
+}
+
 module.exports = {
-    toggleFavoritesHandler
+    listSavedBooks,
+    toggleFavorites,
+    deleteSaved
 }
