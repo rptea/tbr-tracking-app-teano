@@ -15,6 +15,6 @@ async function searchBooks (query) {
     }))
 }
 
-MediaSourceHandle.exports = {
+module.exports = {
     searchBooks
 }
