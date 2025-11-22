@@ -3,8 +3,11 @@ const router = require("express").Router();
 const bookController = require("../controllers/bookController");
 const checkAuth = require("../middleware/auth");
 
-// show search form
+// show search form = GET
 router.get("/search", bookController.handleSearch);
+
+// handles search POST
+router.post("/search", bookController.handleSearch);
 
 // save selected book, requires login because it uses req.session.userId
 router.post("/save", checkAuth, bookController.saveBook);

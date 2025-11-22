@@ -5,19 +5,37 @@ const UserBook=require('../models/userBookModel')
 
 // Show search form
 function showSearchForm(req, res) {
-    res.render('search');
+    res.render('search', {
+        isLoggedIn: req.session.isLoggedIn,
+    });
 }
 
 // Run a search against Open Library
 async function handleSearch(req, res) {
     try {
-        const query = req.query.q || req.query.query || req.body.query;
+        const query = req.query.q || req.query.query || req.body.query
 
-        if (!query || query.trim() === "") {
+        if (!query || query.trim() === '') {
             return res.render("search", { 
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
             });
         }
+
+        // pagination settings
+        const page = parseInt(req.query.page || '1', 10)
+        const limitRaw = parseInt(req.query.limit || '12', 10)
+        const validPageSizes = [12, 24, 36]
+        const limit = validPageSizes.includes(limitRaw) ? limitRaw : 12
+
+        // get all results from open library
+        const allResults = await bookApiService.searchBooks(query)
+
+        const totalResults = allResults.length
+        const totalPages = Math.max(1, Math.ceil(totalResults / limit))
+
+        const currentPage = Math.min(Math.max(page, 1), totalPages)
+        const start = (currentPage - 1) * limit
+        const paginatedResults = allResults.slice(start, start + limit)
 
         // pagination
         const hasPrev = currentPage > 1;
