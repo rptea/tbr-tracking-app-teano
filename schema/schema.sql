@@ -22,7 +22,7 @@ CREATE TABLE user_books (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   book_id INT NOT NULL,
-  status ENUM('to_read','reading','finished'),
+  favorited TINYINT(1) DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY unique_user_book (user_id, book_id),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
