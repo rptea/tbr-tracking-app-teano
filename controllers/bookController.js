@@ -1,5 +1,7 @@
 // Imports
 const bookApiService = require('../services/bookApiService')
+const Book = require('../models/bookModel')
+const UserBook=require('../models/userBookModel')
 
 // Show search form
 function showSearchForm(req, res) {
@@ -26,7 +28,7 @@ async function handleSearch(req, res) {
 // Save a selected book to books and user_books
 async function saveBook(req, res) {
     try {
-        const userId = res.session.userId
+        const userId = req.session.userId
 
         if (!userId) {
             return res.redirect('/login')
@@ -44,13 +46,31 @@ async function saveBook(req, res) {
             return res.status(400).send('Missing book data')
         }
 
-        let existingBook = await bookApiService.findByApiId(api_source, api_id)
+        // check if book already exists in books table
+        let existingBook = await Book.findByApiId(api_source, api_id)
         let bookId
 
-        if (!existingUserBook) {
+        if (!existingBook) {
+            // insert into books table if it doesn't exist
+            bookId = await Book.createFromApiData({
+                api_source,
+                api_id,
+                title,
+                author,
+                thumbnail_url
+            })
+        }   else {
+            bookId = existingBook.id
+        }
+
+        // check if user already saved book
+        const existingUserbook = await UserBook.findByUserAndBook(userId, bookId)
+
+        if (!existingUserbook) {
             await UserBook.create(userId, bookId)
         }
 
+        // redirect to saved books view
         return res.redirect('/books/saved')
     } catch (err) {
         console.error(err)
