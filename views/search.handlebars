@@ -1,0 +1,26 @@
+{{!-- views/search.handlebars --}}
+<h1>Find a book</h1>
+
+<p>Search by title, author, or keyword</p>
+
+{{#if error}}
+    <p class=""error>{{error}}</p>
+{{/if}}
+
+<form action="/books/search" method="POST" class="search-form">
+    <label for="query">Search</label>
+    <input
+        id="query"
+        name="query"
+        type="text"
+        placeholder="e.g. The Familiar Leigh Bardugo"
+        value="{{query}}"
+        required
+    >
+
+    <button type="submit">Search</button>
+</form>
+
+<p>
+    <a href="/books/saved">View my saved books</a>
+</p>

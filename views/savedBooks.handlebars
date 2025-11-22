@@ -1,0 +1,45 @@
+{{!-- views/savedBooks.handlebars --}}
+<h1>My saved books</h1>
+
+<p>
+    <a href="/books/search">Search for more books</a>
+</p>
+
+{{#if savedBooks.length}}
+    <ul class="saved-books-list">
+        {{#each savedBooks}}
+            <li class="saved-book-card">
+                <div class="saved-book-card__image">
+                    <img src="{{thumbnail_url}}" alt="Cover for {{title}}">
+                </div>
+
+                <div class="saved-book-card__content">
+                    <h2>{{title}}</h2>
+                    <p class="saved-book-card__author">{{author}}</p>
+
+                    {{!-- favorite toggle --}}
+                    <form action="/books/saved/{{saved_id}}/favorite" method="POST" class="inline-form">
+                        <input 
+                            type="hidden"
+                            name="favorited"
+                            value="{{#if favorited}}false{{else}}true{{/if}}"
+                        >
+                        <button type="submit">
+                            {{#if favorited}}Remove favorite{{else}}Mark as favorite{{/if}}
+                        </button>    
+                    </form>
+
+                    {{!-- delete saved entry --}}
+                    <form action="/books/saved/{{saved_id}}/delete" method="POST" class="inline-form">
+                        <button type="submit">Remove from list</button>
+                    </form>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>You do not have any saved books yet.</p>
+    <p>
+        <a href="/books/search">Start searching for books</a>
+    </p>
+{{/if}}
