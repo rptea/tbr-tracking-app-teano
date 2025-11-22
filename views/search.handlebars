@@ -4,7 +4,7 @@
 <p>Search by title, author, or keyword</p>
 
 {{#if error}}
-    <p class=""error>{{error}}</p>
+    <p class="error">{{error}}</p>
 {{/if}}
 
 <form action="/books/search" method="POST" class="search-form">
@@ -13,11 +13,10 @@
         id="query"
         name="query"
         type="text"
-        placeholder="e.g. The Familiar Leigh Bardugo"
+        placeholder="e.g. Legend Marie Lu"
         value="{{query}}"
         required
     >
-
     <button type="submit">Search</button>
 </form>
 
