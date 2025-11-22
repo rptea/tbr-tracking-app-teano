@@ -7,17 +7,17 @@ async function create(userId, bookId) {
         `INSERT INTO user_books (user_id, book_id)
         VALUES (?,?)`,
         [userId, bookId]
-    )
+    );
 
-    return result.InsterId
+    return result.instertId
 }
 
 // Get all saved books for a user (joined with book metadata)
 async function getSavedBooksByUser(userId) {
     const [rows] = await db.query(
-        // JOIN betwen user_books and book
-        // Returns title, author, thumbnail
-        // Orders by recent saves
+        // JOIN between user_books and book
+        // Returns title, author, thumbnails
+        // Order by recent saves
         `SELECT
             user_books.id AS saved_id,
             user_books.favorited,
@@ -30,9 +30,9 @@ async function getSavedBooksByUser(userId) {
         WHERE user_books.user_id = ?
         ORDER BY user_books.created_at DESC`,
         [userId]
-    )
+    );
 
-    return rows
+    return rows;
 }
 
 // Toggle the favorited status = updates favorited field
@@ -42,21 +42,22 @@ async function toggleFavorites(savedId, newValue) {
         SET favorited = ?
         WHERE id = ?`,
         [newValue, savedId]
-    )
+    );
 }
 
 // Delete one saved book entry
 async function remove(savedId) {
     await db.query(
         `DELETE FROM user_books
-        WEHERE id = ?`,
+        WHERE id = ?`,
         [savedId]
     )
 }
 
 module.exports = {
     create,
+    findByUserAndBook,
     getSavedBooksByUser,
-    toggleFavorite,
+    toggleFavorites,
     remove
-}
+};

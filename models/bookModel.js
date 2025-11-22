@@ -20,3 +20,8 @@ async function createFromApiData(bookData) {
 
     return result.insertId;
 }
+
+module.exports = {
+    findByApiId,
+    createFromApiData,
+};
