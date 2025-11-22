@@ -1,4 +1,4 @@
-const db = require ('../config/db')
+const db = require ('../config/connection')
 
 // Create a saved book entry for user
 async function create(userId, bookId) {
@@ -10,6 +10,16 @@ async function create(userId, bookId) {
     );
 
     return result.instertId
+}
+
+// avoid duplicates for the same user+book
+async function findByUserAndBook(userId, bookData) {
+    const [rows] = await db.query(
+        `SELECT *
+        FROM user_books
+        WHERE user_ide = ? AND book_id = ?`,
+        [userId, bookId]
+    )
 }
 
 // Get all saved books for a user (joined with book metadata)

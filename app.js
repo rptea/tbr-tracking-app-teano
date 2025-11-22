@@ -8,8 +8,8 @@ const connection = require("./config/connection");
 // route files
 const apiRoutes = require("./routes/apiRoutes");
 const htmlRoutes = require("./routes/htmlRoutes");
-const bookRoutes = require('./routes/bookRoutes'); // handles GET /books/search, POST /books/search, POST /books/save
-const savedRoutes = require('./routes/savedRoutes'); // handles GET /books/saved, POST /books/saved/:savedId/favorite, POST /books/saved/:savedId/delete
+const bookRoutes = require("./routes/bookRoutes"); // handles GET /books/search, POST /books/search, POST /books/save
+const savedRoutes = require("./routes/savedRoutes"); // handles GET /books/saved, POST /books/saved/:savedId/favorite, POST /books/saved/:savedId/delete
 
 const app = express();
 

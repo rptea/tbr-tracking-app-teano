@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../config/connection');
 
 // Find book in database use API source + API id
 async function findByApiId(apiSource, apiId) {
