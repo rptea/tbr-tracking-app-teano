@@ -28,7 +28,14 @@ app.use(
   })
 );
 
-app.engine("handlebars", exphbs.engine());
+app.engine(
+  "handlebars", 
+  exphbs.engine({
+    helpers: {
+      year: () => new Date().getFullYear(),
+    },
+  })
+);
 app.set("view engine", "handlebars");
 
 app.use(express.json());
