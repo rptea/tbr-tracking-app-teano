@@ -9,9 +9,13 @@ async function create(req, res) {
 
     const user = await User.create(username, password);
 
-    if (!user) return res.redirect("/signup?error=error creating new user");
-
+    if (!user) {
+      return res.redirect("/signup?error=error creating new user");
+    }
+    
     req.session.isLoggedIn = true;
+    req.session.userId = user.id;
+
     req.session.save(() => res.redirect("/"));
   } catch (err) {
     console.log(err);

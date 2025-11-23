@@ -8,9 +8,12 @@ async function listSavedBooks(req, res) {
             return res.redirect('/login')
         }
 
-        const saveBooks = await UserBook.getSavedBooksByUser(userId)
+        const savedBooks = await UserBook.getSavedBooksByUser(userId)
 
-        res.render('savedBooks', { savedBooks })
+        res.render('savedBooks', { 
+            savedBooks, 
+            isLoggedIn: req.session.isLogggedIn
+        });
     } catch (err) {
         console.error(err)
         res.status(500).send('Error loading saved books')

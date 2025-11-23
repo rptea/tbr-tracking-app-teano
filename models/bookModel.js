@@ -12,10 +12,12 @@ async function findByApiId(apiSource, apiId) {
 async function createFromApiData(bookData) {
     const { api_source, api_id, title, author, thumbnail_url } = bookData;
 
+    const safeAuthor = author && author.trim() !=="" ? author : "Unknown author";
+
     const [result] = await db.query (
         `INSERT INTO books (api_source, api_id, title, author, thumbnail_url) 
         VALUES (?, ?, ?, ?, ?)`,
-        [api_source, api_id, title, author, thumbnail_url]
+        [api_source, api_id, title, safeAuthor, thumbnail_url]
     );
 
     return result.insertId;

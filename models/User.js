@@ -4,7 +4,7 @@ const db = require("../config/connection");
 async function findByUsername(username) {
   const [[user]] = await db.query(
     `SELECT * FROM users WHERE username=?`,
-    username
+    [username]
   );
   return user;
 }
