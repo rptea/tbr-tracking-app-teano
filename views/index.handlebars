@@ -1,7 +1,27 @@
 {{> header}}
+
 <main>
-  <h1>This is the home page!</h1>
-  <p>Currently, you are {{#unless isLoggedIn}} NOT {{/unless}} logged in.</p>
-  <p>You should {{#unless isLoggedIn}}NOT{{/unless}} be able to access <a href="/private">this page</a>.</p>
-  <p>Use the header above to {{#if isLoggedIn}} logout{{else}} login or create an account{{/if}}.</p>
+  
+  <section class="hero">
+    <div class="hero-text">
+        <h1>Keep track of your future reads</h1>
+        <p class="hero-subtitle">
+          Search books. Save your favorites. Build your TBR.
+        </p>
+        <p>Currently, you are {{#unless isLoggedIn}} NOT {{/unless}} logged in.</p>
+        <p>You should {{#unless isLoggedIn}}NOT{{/unless}} be able to access <a href="/private">this page</a>.</p>
+        <p>Use the header above to {{#if isLoggedIn}} logout{{else}} login or create an account{{/if}}.</p>
+
+        {{#if isLoggedIn}}
+          <a href="/books/search" class="hero-button">Start Searching</a>
+        {{else}}
+          <a href="/signup" class="hero-button">Create an Account</a>
+        {{/if}}
+      </div>
+
+      <div class="hero-illustration">
+        <img src="/book-illustration.png" alt="books stacked" />
+      </div>
+  </section>
+
 </main>
