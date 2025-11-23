@@ -9,7 +9,7 @@ async function searchBooks (query) {
     const results = (data.docs || []).map((doc) => {
         const author = doc.author_name && doc.author_name.length > 0 ? doc.author_name[0] : "";
 
-        const thumbnail_url = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : "";
+        const thumbnail_url = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : "/default-illustration.png";
 
         return {
             api_source: "openlibrary",
