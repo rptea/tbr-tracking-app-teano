@@ -13,13 +13,15 @@ async function create(userId, bookId) {
 }
 
 // avoid duplicates for the same user+book
-async function findByUserAndBook(userId, bookData) {
+async function findByUserAndBook(userId, bookId) {
     const [rows] = await db.query(
         `SELECT *
         FROM user_books
-        WHERE user_ide = ? AND book_id = ?`,
+        WHERE user_id = ? AND book_id = ?`,
         [userId, bookId]
     )
+
+    return rows[0]
 }
 
 // Get all saved books for a user (joined with book metadata)
@@ -42,7 +44,7 @@ async function getSavedBooksByUser(userId) {
         [userId]
     );
 
-    return rows;
+    return rows
 }
 
 // Toggle the favorited status = updates favorited field

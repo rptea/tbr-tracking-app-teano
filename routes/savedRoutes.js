@@ -6,9 +6,9 @@ const savedController = require('../controllers/savedController')
 router.get('/saved', savedController.listSavedBooks)
 
 // toggle favorite on a saved book
-router.post('saved/:savedId/favorite', savedController.toggleFavorites)
+router.post('/saved/:savedId/favorite', savedController.toggleFavorites)
 
 // delete a saved book
-router.post('saved/:savedId/delete', savedController.deleteSaved)
+router.post('/saved/:savedId/delete', savedController.deleteSaved)
 
 module.exports = router;
