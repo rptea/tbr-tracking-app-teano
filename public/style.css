@@ -17,6 +17,13 @@
   --shadow-soft: 0 10px 25px rgba(54, 63, 102, 0.12);
 }
 
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 .hero {
   background: linear-gradient(
     135deg,
@@ -284,6 +291,12 @@ form button:hover {
   text-align: center;
   color: var(--text-muted);
   font-size: 0.85rem;
+}
+
+@media (min-width: 1400px) {
+  .page-container {
+    max-width: 1300px;
+  }
 }
 
 @media (max-width: 480px) {
