@@ -2,7 +2,7 @@
 A simple, mobile-responsive book tracking app built with Node, Express, Handlebars, and MySQL, allowing users to search books via the Open Library API and save titles to their reading list.
 
 ## Features
-- Search for books using the Open Library API
+- Search for books using the Open Library API || https://openlibrary.org/developers/api
 - Save books to your personal TBR (To Be Read) list
 - Mark saved books as favorites
 - Delete books from your saved list
@@ -24,6 +24,12 @@ A simple, mobile-responsive book tracking app built with Node, Express, Handleba
 - Handlebars (hbs)
 - Custom CSS
 - Responsive layout + grid system
+
+## Screenshots
+![Home Page](./images/home-page.png)
+![Mobile View](./images/mobile-view.png)
+![Results View](./images/results-view.png)
+![Saved View](./images/saved-view.png)
 
 ## Author
 - Rachel Teano
